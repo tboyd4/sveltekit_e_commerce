@@ -1,2 +1,15 @@
-<h1 class="text-blue-800">Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import ProductCard from '../components/ProductCard.svelte';
+	import { productStore } from '../stores/productStore';
+</script>
+
+<div>
+	<br />
+	{#if $productStore}
+		{#each $productStore as product}
+			<ProductCard {product} />
+		{/each}
+	{:else}
+		<p>...loading</p>
+	{/if}
+</div>

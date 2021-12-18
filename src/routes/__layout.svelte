@@ -1,14 +1,12 @@
-<script lang='ts'>
+<script lang="ts">
 	import { getAllProducts } from '../services/products.service';
 	import { onMount } from 'svelte';
-	import { debug } from 'debug';
+	import { productStore } from '../stores/productStore';
 
-	const log = debug('app:Layout--LAYOUT');
-
-	onMount(() => {
-		log('about to get all products');
-		getAllProducts();
-	})
+	onMount(async () => {
+		let grabbedProducts = await getAllProducts();
+		productStore.setProducts(grabbedProducts.reverse());
+	});
 </script>
 
 <slot />
