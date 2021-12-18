@@ -1,23 +1,11 @@
-import WooCommerceAPI from 'woocommerce-api';
-import { variables } from '../tools/variables';
-import { debug } from 'debug';
+import debug from 'debug';
 
 const log = debug('app:Products--SERVICE');
 
-const WooCommerce = new WooCommerceAPI({
-	url: `${variables.wpBaseUrl}`,
-	consumerKey: variables.consumerKey,
-	consumerSecret: variables.consumerSecret,
-	wpAPI: true,
-	version: 'wc/v1'
-});
-
-export const getAllProducts = (): unknown => {
-	const allProducts = WooCommerce.getAsync('products').then((result) => {
-		log('allProducts Response:', result);
-
-		return JSON.parse(result.toJSON().body);
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const getAllProducts = () => {
+	return fetch('http://localhost:5000/products').then((response) => {
+		log('allProducts Response', response.body);
+		return response;
 	});
-
-	return allProducts;
 };
